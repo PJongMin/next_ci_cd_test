@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,10 +16,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
       - name: Install Dependencies
         run: npm install
+
+      - name: Build the Next.js app
+        run: npm run build
+
       - name: Generate deployment package
-        run: zip -r deploy.zip . -x '*.git*'
+        run: zip -r deploy.zip .platform .next pages public styles *.json
  
       - name: Beanstalk Deploy
         uses: einaregilsson/beanstalk-deploy@v22
