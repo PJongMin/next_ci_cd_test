@@ -18,7 +18,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Generate deployment package
-        run: zip -r app2.zip .platform .next pages public styles *.json
+        run: zip -r deploy.zip .platform .next pages public styles *.json
  
       - name: Beanstalk Deploy
         uses: einaregilsson/beanstalk-deploy@v22
