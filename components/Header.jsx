@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import UserIcon from "./UserIcon";
 import PagePadding from "./PagePadding";
@@ -18,13 +19,14 @@ import Logo from "./elements/Logo";
 import Navigator from "./elements/Navigator";
 
 const HeaderDrawer = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <Drawer direction="left">
+    <Drawer direction="left" open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger>{children}</DrawerTrigger>
       <DrawerContent className="h-full w-[240px]">
         <div className="py-3">
           <div className="px-3">
-            <Logo />
+            <Logo isInDrawer onClickClose={() => setIsOpen(false)} />
           </div>
           <Navigator />
         </div>
