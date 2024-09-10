@@ -9,20 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        env:
-          - {
-              branch: "develop",
-              environment_name: "savenote-fe-alpha",
-              next_public_env: "alpha",
-            }
-          - {
-              branch: "main",
-              environment_name: "savenote-fe-production",
-              next_public_env: "production",
-            }
-
     steps:
       - name: Checkout Source
         uses: actions/checkout@v4
@@ -33,7 +19,14 @@ jobs:
           node-version: "20"
 
       - name: Set Environment Variables
-        run: echo "NEXT_PUBLIC_ENVIRONMENT=${{ matrix.env.next_public_env }}" >> $GITHUB_ENV
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/develop" ]; then
+            echo "NEXT_PUBLIC_ENVIRONMENT=alpha" >> $GITHUB_ENV
+            echo "ENVIRONMENT_NAME=savenote-fe-alpha" >> $GITHUB_ENV
+          elif [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "NEXT_PUBLIC_ENVIRONMENT=production" >> $GITHUB_ENV
+            echo "ENVIRONMENT_NAME=savenote-fe-production" >> $GITHUB_ENV
+          fi
 
       - name: Install Dependencies
         run: npm install
@@ -41,17 +34,23 @@ jobs:
       - name: Build the Next.js app
         run: npm run build
 
+      - name: Get current time
+        uses: josStorer/get-current-time@v2.0.0
+        id: current-time
+        with:
+          format: YYYY-MM-DDTHH-mm-ss
+          utcOffset: "+09:00"
+
       - name: Generate deployment package
         run: zip -r deploy.zip .platform .next pages public styles *.json
 
       - name: Beanstalk Deploy
-        if: github.ref == 'refs/heads/${{ matrix.env.branch }}'
         uses: einaregilsson/beanstalk-deploy@v22
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: "savenote-fe"
-          environment_name: ${{ matrix.env.environment_name }}
-          version_label: ${{ github.sha }}
+          environment_name: ${{ env.ENVIRONMENT_NAME }}
+          version_label: github-action-${{steps.current-time.outputs.formattedTime}}
           region: ${{ secrets.AWS_REGION }}
           deployment_package: deploy.zip
