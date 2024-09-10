@@ -25,7 +25,7 @@ export default async function RootLayout({
             {/* <Sidebar>{children}</Sidebar> */}
             {
               <div className="flex flex-row items-center justify-center text-[500px]">
-                hi
+                유푸름
               </div>
             }
           </ThemeProvider>
