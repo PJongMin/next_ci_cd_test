@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Set Environment Variables
         if: github.ref == 'refs/heads/develop'
@@ -40,8 +40,8 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: 'kb-fe'
-          environment_name: 'alpha'
+          application_name: "kb-fe"
+          environment_name: "production"
           version_label: ${{github.sha}}
           region: ${{ secrets.AWS_REGION }}
           deployment_package: deploy.zip
