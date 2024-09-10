@@ -22,8 +22,8 @@ const Header = ({ children }) => {
       </section>
       <section className="sticky">
         <PagePadding>
-          <div className="flex flex-row items-center justify-between">
-            <article className="bt-[rgba(0,0,0,0.14)] flex h-[42px] min-w-[480px] flex-row items-center gap-[16px] rounded-2xl px-[16px]">
+          <div className="flex h-[64px] flex-row items-center justify-between">
+            <article className="flex h-[42px] min-w-[480px] flex-row items-center gap-[16px] rounded-2xl bg-[rgba(0,0,0,0.14)] px-[16px]">
               <div>
                 <FiSearch size={24} />
               </div>
@@ -33,7 +33,7 @@ const Header = ({ children }) => {
                 placeholder="노래, 앨범, 아티스트, 팟캐스트 검색"
               />
             </article>
-            <article>
+            <article className="flex flex-row items-center gap-4">
               <FaChromecast size={26} />
               <UserIcon />
             </article>
