@@ -22,12 +22,7 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {/* <Sidebar>{children}</Sidebar> */}
-            {
-              <div className="flex flex-row items-center justify-center text-[500px]">
-                유푸름
-              </div>
-            }
+            <Sidebar>{children}</Sidebar>
           </ThemeProvider>
         </body>
       </html>
