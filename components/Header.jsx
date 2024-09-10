@@ -1,13 +1,58 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import UserIcon from "./UserIcon";
 import PagePadding from "./PagePadding";
 import { FaChromecast } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import Logo from "./elements/Logo";
+import Navigator from "./elements/Navigator";
+import { cn } from "@/lib/utils";
+
+const HeaderDrawer = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <Drawer direction="left" open={isOpen} onOpenChange={setIsOpen}>
+      <DrawerTrigger>{children}</DrawerTrigger>
+      <DrawerContent className="h-full w-[240px]">
+        <div className="py-3">
+          <div className="px-3">
+            <Logo isInDrawer onClickClose={() => setIsOpen(false)} />
+          </div>
+          <Navigator />
+        </div>
+      </DrawerContent>
+    </Drawer>
+  );
+};
 
 const Header = ({ children }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const headRef = useRef();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollValue = headRef?.current?.scrollTop;
+      console.log("hi", scrollValue);
+      setIsScrolled(scrollValue !== 0);
+    };
+    headRef?.current?.addEventListener("scroll", handleScroll);
+    return () => {
+      headRef?.current?.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
-    <header className="relative h-full w-full overflow-y-auto">
+    <header ref={headRef} className="relative h-full w-full overflow-y-auto">
       <section className="absolute top-0 w-full">
         <div className="relative h-[400px] w-full">
           <Image
@@ -20,10 +65,12 @@ const Header = ({ children }) => {
           <div className="absolute top-0 h-[400px] w-full bg-gradient-to-t from-black"></div>
         </div>
       </section>
-      <section className="sticky">
+      <section
+        className={cn("sticky left-0 top-0 z-10", isScrolled && "bg-black")}
+      >
         <PagePadding>
-          <div className="flex flex-row items-center justify-between">
-            <article className="bt-[rgba(0,0,0,0.14)] flex h-[42px] min-w-[480px] flex-row items-center gap-[16px] rounded-2xl px-[16px]">
+          <div className="flex h-[64px] flex-row items-center justify-between">
+            <article className="flex hidden h-[42px] min-w-[480px] flex-row items-center gap-[16px] rounded-2xl border border-neutral-500 bg-[rgba(0,0,0,0.14)] px-[16px] lg:flex">
               <div>
                 <FiSearch size={24} />
               </div>
@@ -33,7 +80,12 @@ const Header = ({ children }) => {
                 placeholder="노래, 앨범, 아티스트, 팟캐스트 검색"
               />
             </article>
-            <article>
+            <HeaderDrawer>
+              <article className="lg:hidden">
+                <Logo />
+              </article>
+            </HeaderDrawer>
+            <article className="flex flex-row items-center gap-4">
               <FaChromecast size={26} />
               <UserIcon />
             </article>
