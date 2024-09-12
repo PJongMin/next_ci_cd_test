@@ -14,10 +14,12 @@ const page = async () => {
   const env = process.env;
   const apiEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
   const apiKey = process.env.API_KEY;
+  const enviroment = process.env.NEXT_PUBLIC_ENVIRONMENT;
 
   console.log(`process.env: ${env}`);
   console.log(`process.env.NEXT_PUBLIC_API_ENDPOINT: ${apiEndpoint}`);
   console.log(`process.env.API_KEY: ${apiKey}`);
+  console.log(`process.env.NEXT_PUBLIC_ENVIRONMENT ${enviroment}`);
 
   return (
     <PagePadding>
