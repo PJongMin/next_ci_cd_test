@@ -18,6 +18,7 @@ import {
 import Logo from "./elements/Logo";
 import Navigator from "./elements/Navigator";
 import { cn } from "@/lib/utils";
+import useUIState from "@/hooks/useUIState";
 
 const HeaderDrawer = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,6 +38,7 @@ const HeaderDrawer = ({ children }) => {
 };
 
 const Header = ({ children }) => {
+  const { headerImageSrc } = useUIState();
   const [isScrolled, setIsScrolled] = useState(false);
   const headRef = useRef();
 
@@ -59,7 +61,10 @@ const Header = ({ children }) => {
             alt="mediaItem"
             className="object-cover"
             fill
-            src="https://images.unsplash.com/photo-1717361275129-76ec3c9668d1?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src={
+              headerImageSrc ||
+              "https://images.unsplash.com/photo-1707833558984-3293e794031c"
+            }
           />
           <div className="absolute top-0 h-[400px] w-full bg-black opacity-40"></div>
           <div className="absolute top-0 h-[400px] w-full bg-gradient-to-t from-black"></div>
