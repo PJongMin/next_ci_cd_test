@@ -16,9 +16,9 @@ const page = async () => {
         <div className="mt-12"></div>
         <PlayListCarousel
           playlistArray={[...dummyPlaylistArray1]}
-          Thumnail={
+          Thumbnail={
             <div className="h-[56px] w-[56px]">
-              <UserIcon />
+              <UserIcon size="lg" />
             </div>
           }
           title="다시듣기"
