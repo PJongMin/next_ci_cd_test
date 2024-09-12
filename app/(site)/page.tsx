@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Category from "./components/Category";
 import PagePadding from "@/components/PagePadding";
@@ -10,9 +11,19 @@ const page = async () => {
   const dummyPlaylistArray2 = [await getPlaylistById(1)];
   const dummyPlaylistArray3 = [await getPlaylistById(2)];
   const dummyPlaylistArray4 = [await getPlaylistById(3)];
+  const env = process.env;
+  const apiEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
+  const apiKey = process.env.API_KEY;
+  const enviroment = process.env.NEXT_PUBLIC_ENVIRONMENT;
+
+  console.log(`process.env: ${env}`);
+  console.log(`process.env.NEXT_PUBLIC_API_ENDPOINT: ${apiEndpoint}`);
+  console.log(`process.env.API_KEY: ${apiKey}`);
+  console.log(`process.env.NEXT_PUBLIC_ENVIRONMENT ${enviroment}`);
 
   return (
     <PagePadding>
+      <div></div>
       <div className="min-h-[600px]">
         <div className="mt-9"></div>
         <Category />
