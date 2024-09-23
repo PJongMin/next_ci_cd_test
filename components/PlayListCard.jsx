@@ -25,7 +25,7 @@ const PlayListCard = ({ playlist = {} } = {}) => {
           src={imageSrc}
           fill={true}
           alt="thumbnail"
-          className="object-cover"
+          className="rounded-md object-cover"
         />
         <div className="relative top-0 hidden h-[136px] w-full bg-gradient-to-b from-[rgba(0,0,0,0.7)] group-hover:block">
           <div className="absolute right-2 top-4">
