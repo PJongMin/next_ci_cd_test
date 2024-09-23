@@ -13,7 +13,7 @@ const Sidebar = ({ children }) => {
           <Navigator />
         </div>
       </nav>
-      <div className="flex-1">{children}</div>
+      <div className="lg:w-[calc(100% - 240px)] w-full">{children}</div>
     </div>
   );
 };
