@@ -3,10 +3,10 @@ import { FiMusic } from "react-icons/fi";
 import { FiBarChart } from "react-icons/fi";
 import { FiSmile } from "react-icons/fi";
 
-const CategoryMenu = ({ icon, label }) => {
+const CategoryMenu = ({ icons, label }) => {
   return (
     <div className="flex h-[56px] w-full cursor-pointer flex-row items-center gap-4 rounded-sm bg-neutral-700 px-[24px] py-4 text-[20px] transition hover:bg-neutral-800">
-      {icon}
+      {icons}
       {label}
     </div>
   );
