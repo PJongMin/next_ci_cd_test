@@ -6,6 +6,9 @@ import PlayListCarousel from "@/components/PlayListCarousel";
 import SongListCarousel from "@/components/SongListCarousel";
 
 const page = async () => {
+  // const playlistArray = await getAllPlaylist();
+  // const songListTop10 = await getSongListTop10();
+
   const [playlistArray, songListTop10] = await Promise.all([
     getAllPlaylist(),
     getSongListTop10(),
