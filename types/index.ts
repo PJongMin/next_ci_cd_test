@@ -8,7 +8,7 @@ export interface Song {
 
 export interface TopSong extends Song {
   prevRank: number;
-  rand: number;
+  rank: number;
 }
 
 export interface Playlist {
